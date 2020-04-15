@@ -1,0 +1,446 @@
+<!DOCTYPE HTML>
+{% load staticfiles %}
+<html>
+<head>
+
+		<title> TicketGet - 早安少女組</title>
+<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	   <link rel="stylesheet" href="{% static '/assets/css/main.css' %}" >
+	   <link href=https://fonts.googleapis.com/css?family=Varela+Round rel="stylesheet">
+    <link href=https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i rel="stylesheet">
+<!--countdown -->
+
+	<link rel="icon" type="image/png" href="{% static 'image/icons/favicon.ico' %} ">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css " integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href=" {% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'fonts/font-awesome-4.7.0/css/font-awesome.min.css'  %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/animate/animate.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/select2/select2.min.css'  %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'css/util.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/navbar.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/side_nav.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/menu.css' %}">
+<!--===============================================================================================-->
+    <!--button-->
+
+</head>
+
+
+<body>
+
+
+<!-- Side-nav -->
+  <div class="page-main menu" role="main">
+    <button class="qq nav-tgl" type="button" aria-label="toggle menu"><span aria-hidden="true"></span></button>
+    <nav class="nav">
+        <aside>
+                <ul class="menu">
+                    <li><a>華語</a>
+                        <ul class="sub-menu">
+                            <li><a>女歌手</a>
+                                <ul class="sub-menu">
+                                    <li><a href="/info/?p1=BaiAn">白安</a></li>
+                                </ul>
+                            </li>
+                            <li><a>男歌手</a>
+                                <ul class="sub-menu">
+                                    <li><a href="/info/?p1=XiaoBinZhe">蕭秉治</a></li>
+                                </ul>
+                            </li>
+                            <li><a>團體</a>
+                                <ul class="sub-menu">
+                                    <li><a href="/info/?p1=831">八三夭</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a>日韓</a>
+                        <ul class="sub-menu">
+                            <li><a>女歌手</a>
+                                <ul class="sub-menu">
+                                    <li><a href="/info/?p1=Aimer">Aimer</a></li>
+                                </ul>
+                            </li>
+                            <li><a>男歌手</a>
+                                <ul class="sub-menu">
+                                    <li><a href="/info/?p1=Aska">飛鳥涼</a></li>
+                                </ul>
+                            </li>
+                            <li><a>團體</a>
+                                <ul class="sub-menu">
+                                    <li><a href="/info/?p1=MorningGirl">早安少女組</a></li>
+                                    <li><a href="/info/?p1=BTS">BTS</a></li>
+                                    <li><a href="/info/?p1=MAMAMOO">MAMAMOO</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a>歐美</a>
+                        <ul class="sub-menu">
+                            <li><a>男歌手</a>
+                                <ul class="sub-menu">
+                                    <li><a href="/info/?p1=Shawn Mendes">Shawn Mendes</a></li>
+                                </ul>
+                            </li>
+                            <li><a>團體</a>
+                                <ul class="sub-menu">
+                                    <li><a href="/info/?p1=WestLife">WestLife</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </aside>
+    </nav>
+  </div>
+
+
+
+  <!-- 收藏 -->
+     <h3 id="collection"><img class="star" src="{% static 'images/stars.png' %}"></h3>
+    <nav class="menu" id="menu">
+        <ul>
+            {% for fav in all_fav %}
+            <li>
+                <div>
+                    <a id='delete_fav' class="icon fa fa-close" style="cursor: pointer;position: relative;top: 65px ;right: 20px ;float: right; font-size: 36px;" onclick="deletefavorite('{{fav.concert_name}}')"></a>
+                    {% for p in all_photos %}
+                    {% if p.concert_name == fav.concert_name %}
+                    <img style="width: 160px; height: 160px; padding: 5px;" src="{{ p.image.url }}">
+                    {% endif %}{% endfor %}
+                </div>
+                <div>{% for a in all_concerts %}{% if fav in a.favoriteconcert_set.all %} <a href="/info/?p1={{a.singer}}">{{ fav.concert_name }}</a>{% endif %}{% endfor %}</div>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </nav>
+
+
+
+
+	<!-- Navigation -->
+  	<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="/index">Ticket Get</a>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="navitem">
+                        <form action="/search/" method="post">
+                            {% csrf_token %}
+                            
+                                <div class="search_block">
+                                    <span class="icon"><i class="fa fa-search"></i></span>
+                                    <input type="text" id="search" name="search" placeholder="Search...">
+                                </div>
+                            
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+	<!-- Page top -->
+	<section id="banner">
+		<div class="inner">
+			<header>
+				<h1>早安少女組 - 台北場 </h1>
+				<h2>  next buying date - remaining </h2>
+				<br></br>
+			</header>
+			
+
+			<!-- Countdown timer -->
+			<div class="wsize2 flex-w flex-c hsize1 cd100">
+				<div class="flex-col-c-m size2 how-countdown">
+					<span class="l1-txt1 p-b-9 days">35</span>
+					<span class="s1-txt1">Days</span>
+				</div>
+
+				<div class="flex-col-c-m size2 how-countdown">
+					<span class="l1-txt1 p-b-9 hours">17</span>
+					<span class="s1-txt1">Hours</span>
+				</div>
+
+				<div class="flex-col-c-m size2 how-countdown">
+					<span class="l1-txt1 p-b-9 minutes">50</span>
+					<span class="s1-txt1">Minutes</span>
+				</div>
+
+				<div class="flex-col-c-m size2 how-countdown">
+					<span class="l1-txt1 p-b-9 seconds">39</span>
+					<span class="s1-txt1">Seconds</span>
+				</div>
+			</div><br><br>	
+
+			<!-- slide bottom -->
+       		<a href="#main" class="button big alt scrolly">View details</a>
+
+		</div>
+	</section>
+
+
+
+
+
+
+
+
+	<!-- Main -->
+	<div id="main">
+		<section class="wrapper style1">
+			<div class="inner">
+						
+				<!-- 2 Column Video Section -->
+			<div class="concert-img">
+                <img src="{% static 'MornigGirl/19_MMON_c2d55ad82cc6db93a4f68bf93af7fbfb.jpg' %}" style="width :550px; top:130px;left:0px; position: relative;" alt="">
+                </div>
+
+                <div class="concert-detail" style="border-left:.5rem solid rgb(186, 190, 183);">
+
+				
+				<h4>Morning Musume 。’19<h4>
+				<h4>Overseas Fan meeting in Taipei<h4><br><br>
+
+				<font size = "4">Buying ticket date：2019.4.6(Sat) 11:00 </font><br></br>
+				<font size = "4">Ticket Price：NT$3000/ $2000 / $1800 / $1500 </font><br></br>
+				<font size = "4">Date：2019.6.9(Sat）18:00-21:00</font> <br></br>				  
+     			<font size = "4">Address:台北大學育樂館(台北市中山區民生東路三段67號）</font> <br></br> <br></br>
+
+                <div>
+                {% for c in concerts %}
+                <button type="button" id='add_fav'class="{{ c.concert_name }}" style="background-color:
+                rgb(207, 167, 129)  ;position: relative;top: 0px;width:120px;height:60px;padding: 0.25rem 0.5rem;font-size:18px;line-height: 1.5;border-radius: 5px;">favorites</button>
+                 {% endfor %}
+
+     			<button type="button" class="concert-botton" style = "background-color:#A42D00;" onclick="window.location.href='https://tixcraft.com/activity/detail/19_MMON'">Get ticket!</button></div></div>
+                         <br></br><br></br><br></br><br></br></br><br></br><br></br></br><br></br><br></br>
+
+			</div>						
+		</section>
+	</div>
+
+
+
+	<!-- One -->
+	<section class="wrapper style1">
+		<div class="inner">
+			<header class="align-center">
+				<h2>早安少女組's Trailer</h2>
+			</header>
+						
+			<!-- 2 Column Video Section -->
+				<div class="flex flex-2" style="width: 1000px;left:100px;">
+
+					<div class="video col">
+						<div class="image fit">
+							<img src="{% static 'MornigGirl/19_MMON_c2d55ad82cc6db93a4f68bf93af7fbfb.jpg' %}" 
+							style="width :550px; height:400px;left:10px;alt="" />
+							<div class="arrow">
+								<div class="icon fa-youtube"></div>
+							</div>
+						</div>
+						<p class="caption">早安少女組 MV</p>									
+						<a href="https://www.youtube.com/watch?v=yTOxm2xrvJY" class="link"><span> Click me</span></a>
+					</div>
+								
+					<div class="video col">
+						<div class="image fit">
+							<img src="{% static 'MornigGirl/19_MMON_c2d55ad82cc6db93a4f68bf93af7fbfb.jpg' %}" 
+							style="width :550px; height:400px;left:10px;alt="" />
+							<div class="arrow">
+								<div class="icon fa-youtube"></div>
+							</div>
+						</div>
+						<p class="caption">早安少女組 MV </p>
+						<a href="https://www.youtube.com/watch?v=O5sRYn200tM" class="link"><span>Click Me</span></a>
+					</div>
+				</div>
+		</div>
+	</section>
+
+
+	<!-- Two -->
+	<section class="wrapper style1">
+		<div class="inner">
+			<header class="align-center">
+				<h1>Recommandation</h1><br>
+                <h5 style="color: grey;">Everyone looking 早安少女組 also look </h5>
+			</header>
+
+			<!-- 3 Column Video Section -->
+			<div class="flex flex-3">
+				<div class="video col">
+					<div class="image fit">
+						<img src="{% static 'MornigGirl/52572842_635377796890215_2990503449699664049_n.jpg' %}" alt="" />
+						<div class="arrow"></div>
+					</div>
+					<p class="caption">飛鳥涼 Aska</p>
+					<a href="/info/?p1=Aska" class="link"><span>Click Me</span></a>
+				</div>
+
+
+				<div class="video col">
+					<div class="image fit">
+						<img src="{% static 'MornigGirl/52724417_393014894827910_853854432801024753_n.jpg' %}" alt="" />
+						<div class="arrow"></div>
+					</div>
+					<p class="caption">MAMAMOO</p>
+					<a href="/info/?p1=MAMAMOO" class="link"><span>Click me</span></a>
+				</div>
+
+
+				<div class="video col">
+					<div class="image fit">
+						<img src="{% static 'MornigGirl/38441595_2257174847631588_7302842445119619072_n.jpg' %}" alt="" />
+						<div class="arrow"></div>
+					</div>
+						<p class="caption">BTS</p>
+						<a href="/info/?p1=BTS" class="link"><span>Click Me</span></a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+
+	<!-- Footer -->
+	<footer class="bg-blue small text-center text-white-50">
+    	<div class="container"><br></br><br></br>
+      		National Taiwan University of Science and Technology<br></br><br></br>
+    	</div>
+  	</footer>
+
+
+		<!-- Scripts -->
+	<script src="{% static 'assets/js/jquery.min.js' %}"></script>
+	<script src="{% static 'assets/js/jquery.scrolly.min.js' %}"></script>
+	<script src="{% static 'assets/js/skel.min.js' %}"></script>
+	<script src="{% static 'assets/js/util.js' %}"></script>
+	<script src="{% static 'assets/js/grayscale.min.js' %}"></script>
+	<script src="{% static 'assets/js/main.js' %}"></script>
+	<!--  Countdown Scripts -->
+	<script src="{% static 'vendor/countdowntime/moment.min.js' %}"></script>
+	<script src="{% static 'vendor/countdowntime/moment-timezone.min.js' %}"></script>
+	<script src="{% static 'vendor/countdowntime/moment-timezone-with-data.min.js' %}"></script>
+	<script src="{% static 'vendor/countdowntime/countdowntime.js' %}"></script>
+        <script>
+    $.ajaxSetup({
+        data: { csrfmiddlewaretoken: '{{ csrf_token }}' },
+    });
+    </script>
+    <script src="{% static 'athena/js/add_favorite.js' %}"></script>
+	<script>
+		$('.cd100').countdown100({
+			/*Set Endtime here*/
+			/*Endtime must be > current time*/
+			endtimeYear: 2019,
+			endtimeMonth: 6,
+			endtimeDate: 8,
+			endtimeHours: 0,
+			endtimeMinutes: 0,
+			endtimeSeconds: 0,
+			timeZone: "" 
+		});
+	</script>
+
+
+<!--側邊選單的js-->
+
+    <script>
+        $(function() {
+            var href = $(".nav>aside>div>ul>li:has(ul)>a").attr('href');
+            $(".nav>aside>ul>li:has(ul)>a").after('<a href="' + href + '"" class="menu-plus fas fa-angle-right"></a>'); //第二層
+            $(".nav>aside>ul>li>ul>li:has(ul)>a").after('<a href="' + href + '"" class="menu-plus fas fa-angle-right"></a>'); //第三層
+
+            $(".nav>aside>#nav-btn").click(function() {
+                $(".nav>aside>ul").slideToggle();
+                return false;
+            });
+
+  
+
+            $('.menu>li>.fas').on('click', function() {
+              if ( $(this).attr('class') == 'menu-plus fas fa-angle-right') {
+                $(this).removeClass('fa-angle-right');
+                $(this).addClass('fa-angle-down');
+              }
+              else {
+                $(this).removeClass('fa-angle-down');
+                $(this).addClass('fa-angle-right');
+              }
+                
+                $(this).next('.sub-menu').slideToggle();
+                return false;
+            });
+
+
+            $('.menu>li>ul>li>.fas').on('click', function() {
+              if ( $(this).attr('class') == 'menu-plus fas fa-angle-right') {
+                $(this).removeClass('fa-angle-right');
+                $(this).addClass('fa-angle-down');
+              }
+              else {
+                $(this).removeClass('fa-angle-down');
+                $(this).addClass('fa-angle-right');
+              }
+                
+                $(this).next('.sub-menu').slideToggle();
+                return false;
+            });
+
+        })
+        </script>
+
+
+    <script>
+        $(function() {
+    // 
+    var duration = 300;
+
+    // aside ----------------------------------------
+    var $aside = $('.nav > aside > nav-tgl');
+    var $asidButton = $aside.find('.qq')
+        .on('click', function() {
+            $aside.toggleClass('open');
+            if ($aside.hasClass('open')) {
+                $aside.stop(true).animate({ right: '-70px' }, duration, 'easeOutBack');
+                $asidButton.find('img').attr('src', 'https://c2.staticflickr.com/6/5635/31065147822_9b6e31ab5f_o.png');
+            } else {
+                $aside.stop(true).animate({ right: '-350px' }, duration, 'easeInBack');
+                $asidButton.find('img').attr('src', 'https://c2.staticflickr.com/6/5555/31208490685_5c55f2f28f_o.png');
+            };
+        });
+
+});
+</script>
+
+        </script>
+        <script type="text/javascript">
+        $('#collection').click(function() {
+            if ($('#menu').attr('class') == 'menu') {
+                $('#menu').addClass('menu_active');
+            } else if ($('#menu').attr('class') == 'menu menu_deactive') {
+                $('#menu').removeClass('menu_deactive');
+                $('#menu').addClass('menu_active');
+            } else {
+                $('#menu').removeClass('menu_active');
+                $('#menu').addClass('menu_deactive');
+            }
+        })
+        </script>
+
+
+</body>
+</html>

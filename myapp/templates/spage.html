@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load staticfiles %}
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Ticket Get</title>
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- Custom fonts for this template -->
+    <link href="{% static 'athena/vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet">
+    <link href=https://fonts.googleapis.com/css?family=Varela+Round rel="stylesheet">
+    <link href=https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="{% static 'athena/css/grayscale.min.css' %}" rel="stylesheet">
+    <!--側邊選單的css-->
+    <link href="{% static 'css/side_nav.css' %}" rel="stylesheet" type="text/css">
+</head>
+
+<body id="page-top">
+    <!-- Side-nav -->
+    <div class="page-main menu" role="main">
+        <button class="qq nav-tgl" type="button" aria-label="toggle menu"><span aria-hidden="true"></span></button>
+        <nav class="nav">
+            <aside>
+                <ul class="menu">
+                    <li><a>華語</a>
+                        <ul class="sub-menu">
+                            <li><a>女歌手</a>
+                                <ul class="sub-menu">
+                                    <li><a href="/info/?p1=BaiAn">白安</a></li>
+                                </ul>
+                            </li>
+                            <li><a>男歌手</a>
+                                <ul class="sub-menu">
+                                    <li><a href="/info/?p1=XiaoBinZhe">蕭秉治</a></li>
+                                </ul>
+                            </li>
+                            <li><a>團體</a>
+                                <ul class="sub-menu">
+                                    <li><a href="/info/?p1=831">八三夭</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a>日韓</a>
+                        <ul class="sub-menu">
+                            <li><a>女歌手</a>
+                                <ul class="sub-menu">
+                                    <li><a href="/info/?p1=Aimer">Aimer</a></li>
+                                </ul>
+                            </li>
+                            <li><a>男歌手</a>
+                                <ul class="sub-menu">
+                                    <li><a href="/info/?p1=Aska">飛鳥涼</a></li>
+                                </ul>
+                            </li>
+                            <li><a>團體</a>
+                                <ul class="sub-menu">
+                                    <li><a href="/info/?p1=MorningGirl">早安少女組</a></li>
+                                    <li><a href="/info/?p1=BTS">BTS</a></li>
+                                    <li><a href="/info/?p1=MAMAMOO">MAMAMOO</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a>歐美</a>
+                        <ul class="sub-menu">
+                            <li><a>男歌手</a>
+                                <ul class="sub-menu">
+                                    <li><a href="/info/?p1=Shawn Mendes">Shawn Mendes</a></li>
+                                </ul>
+                            </li>
+                            <li><a>團體</a>
+                                <ul class="sub-menu">
+                                    <li><a href="/info/?p1=WestLife">WestLife</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </aside>
+        </nav>
+    </div>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="/index/">Ticket Get</a>
+            
+            <form action="/search/" method="post">
+                {% csrf_token %}
+                <div class="box">
+                    <div class="search_block">
+                        <span class="icon" style="z-index: 999"><i class="fa fa-search"></i></span>
+                        <input type="text" id="search" name="search" placeholder="Search...">
+                    </div>
+                </div>
+            </form>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#projects">Developer</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Header -->
+    <header class="masthead">
+        <h3>
+            <br></br><br></br><br></br><br></br>
+            {% for c in d %}
+            <div style="width:1500px;height:300px;:rgba(60%,60%,60%,0.5);background-color: white;position:absolute;">
+                <ul>
+                    {% for p in all_photos %}
+                    {% if p in c.photo_set.all %}
+                    <img src="{{p.image.url}}" width="300px" height="260px" alt="" style="float : left; margin-right :120px ; margin- bottom :0px; position:relative;left: 5px; top:2px;bottom:10px;" />
+                    {% endif %}
+                    {% endfor %}
+                    <font size="6"> {{ c.concert_name }}</font>
+                    <br></br>
+                    <font size="5">Buying ticket date：{{ c.buy_ticket_date }} </font>
+                    <br></br>
+                    <font size="5">Concert's Date：{{ c.launch_date }}</font>
+                    <br></br>
+                    <font size="5">Concert's Address：{{ c.address }}</font>
+                    <br></br>
+                    <input type="button" ; value="More details..." onclick="location.href='/info/?p1={{c.singer}}'" style="color:brown">
+                    <br></br>
+                </ul>
+                {% endfor %}
+            </div>
+            }
+    </header>
+    <!-- About Section -->
+    <section id="about" class="about-section text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                </div>
+            </div>
+        </div><br><br><br><br>
+        </div>
+        </div>
+        <br><br><br><br><br><br><br><br>
+    </section>
+    <!-- Footer -->
+    <footer class="bg-black small text-center text-white-50">
+        <div class="container">
+            National Taiwan University of Science and Technology
+        </div>
+    </footer>
+    <!-- Bootstrap core JavaScript -->
+    <script src="{% static 'athena/vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'athena/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <!-- Plugin JavaScript -->
+    <script src="{% static 'athena/vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+    <!-- Custom scripts for this template -->
+    <script src="{% static 'athena/js/grayscale.min.js' %}"></script>
+    <!--側邊選單的js-->
+    <script>
+    $(function() {
+        var href = $(".nav>aside>div>ul>li:has(ul)>a").attr('href');
+        $(".nav>aside>ul>li:has(ul)>a").after('<a href="' + href + '"" class="menu-plus fas fa-angle-right"></a>'); //第二層
+        $(".nav>aside>ul>li>ul>li:has(ul)>a").after('<a href="' + href + '"" class="menu-plus fas fa-angle-right"></a>'); //第三層
+
+        $(".nav>aside>#nav-btn").click(function() {
+            $(".nav>aside>ul").slideToggle();
+            return false;
+        });
+
+
+
+        $('.menu>li>.fas').on('click', function() {
+            if ($(this).attr('class') == 'menu-plus fas fa-angle-right') {
+                $(this).removeClass('fa-angle-right');
+                $(this).addClass('fa-angle-down');
+            } else {
+                $(this).removeClass('fa-angle-down');
+                $(this).addClass('fa-angle-right');
+            }
+
+            $(this).next('.sub-menu').slideToggle();
+            return false;
+        });
+
+
+        $('.menu>li>ul>li>.fas').on('click', function() {
+            if ($(this).attr('class') == 'menu-plus fas fa-angle-right') {
+                $(this).removeClass('fa-angle-right');
+                $(this).addClass('fa-angle-down');
+            } else {
+                $(this).removeClass('fa-angle-down');
+                $(this).addClass('fa-angle-right');
+            }
+
+            $(this).next('.sub-menu').slideToggle();
+            return false;
+        });
+
+    })
+    </script>
+    <script>
+    $(function() {
+        // 
+        var duration = 300;
+
+        // aside ----------------------------------------
+        var $aside = $('.nav > aside > nav-tgl');
+        var $asidButton = $aside.find('.qq')
+            .on('click', function() {
+                $aside.toggleClass('open');
+                if ($aside.hasClass('open')) {
+                    $aside.stop(true).animate({ right: '-70px' }, duration, 'easeOutBack');
+                    $asidButton.find('img').attr('src', 'https://c2.staticflickr.com/6/5635/31065147822_9b6e31ab5f_o.png');
+                } else {
+                    $aside.stop(true).animate({ right: '-350px' }, duration, 'easeInBack');
+                    $asidButton.find('img').attr('src', 'https://c2.staticflickr.com/6/5555/31208490685_5c55f2f28f_o.png');
+                };
+            });
+
+    });
+    </script>
+    </script>
+    <script type="text/javascript">
+    $('#collection').click(function() {
+        if ($('#menu').attr('class') == 'menu') {
+            $('#menu').addClass('menu_active');
+        } else if ($('#menu').attr('class') == 'menu menu_deactive') {
+            $('#menu').removeClass('menu_deactive');
+            $('#menu').addClass('menu_active');
+        } else {
+            $('#menu').removeClass('menu_active');
+            $('#menu').addClass('menu_deactive');
+        }
+    })
+    </script>
+</body>
+
+</html>

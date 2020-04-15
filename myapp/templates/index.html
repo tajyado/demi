@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load staticfiles %}
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Ticket Get</title>
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'athena/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- Custom fonts for this template -->
+    <link href="{% static 'athena/vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet">
+    <link href=https://fonts.googleapis.com/css?family=Varela+Round rel="stylesheet">
+    <link href=https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="{% static 'athena/css/grayscale.min.css' %}" rel="stylesheet">
+    <!--側邊選單的css-->
+    <link rel="stylesheet" type="text/css" href="{% static 'athena/css/side_nav.css' %}">
+    <link href="{% static 'athena/css/menu.css' %}" rel="stylesheet">
+</head>
+
+<body id="page-top">
+    <!-- Side-nav -->
+    <div class="page-main menu" role="main">
+        <button class="qq nav-tgl" type="button" aria-label="toggle menu"><span aria-hidden="true"></span></button>
+        <nav class="nav">
+            <aside>
+                <ul class="menu">
+                    <li><a>華語</a>
+                        <ul class="sub-menu">
+                            <li><a>女歌手</a>
+                                <ul class="sub-menu">
+                                    <li><a href="/info/?p1=BaiAn">白安</a></li>
+                                </ul>
+                            </li>
+                            <li><a>男歌手</a>
+                                <ul class="sub-menu">
+                                    <li><a href="/info/?p1=XiaoBinZhe">蕭秉治</a></li>
+                                </ul>
+                            </li>
+                            <li><a>團體</a>
+                                <ul class="sub-menu">
+                                    <li><a href="/info/?p1=831">八三夭</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a>日韓</a>
+                        <ul class="sub-menu">
+                            <li><a>女歌手</a>
+                                <ul class="sub-menu">
+                                    <li><a href="/info/?p1=Aimer">Aimer</a></li>
+                                </ul>
+                            </li>
+                            <li><a>男歌手</a>
+                                <ul class="sub-menu">
+                                    <li><a href="/info/?p1=Aska">飛鳥涼</a></li>
+                                </ul>
+                            </li>
+                            <li><a>團體</a>
+                                <ul class="sub-menu">
+                                    <li><a href="/info/?p1=MorningGirl">早安少女組</a></li>
+                                    <li><a href="/info/?p1=BTS">BTS</a></li>
+                                    <li><a href="/info/?p1=MAMAMOO">MAMAMOO</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a>歐美</a>
+                        <ul class="sub-menu">
+                            <li><a>男歌手</a>
+                                <ul class="sub-menu">
+                                    <li><a href="/info/?p1=Shawn Mendes">Shawn Mendes</a></li>
+                                </ul>
+                            </li>
+                            <li><a>團體</a>
+                                <ul class="sub-menu">
+                                    <li><a href="/info/?p1=WestLife">WestLife</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </aside>
+        </nav>
+    </div>
+    <!-- 首頁刷新通知 -->
+    <div class="notice" style="
+    position: fixed;
+    background: rgb(0, 0, 0, 0.8);
+    padding: 20px 5px 20px 5px;
+    width: 35%;
+    height: 400px;
+    bottom: 20px;
+    right: 0px;
+    border-radius: 5px;
+    box-shadow: 0 0 60px -15px black;
+    /*transform: scale(0) rotate(0deg);*/
+    font-size: 18px;
+    color: white;
+    overflow: auto;
+    z-index: 9999;">
+        <p style="float: right; cursor: pointer;" id="close" ><i class="fas fa-times" style="width: 30px;"></i></p>
+        <p style="float: left;">本週熱門前三名:</p>
+        <br>
+        {% for h in hot_concerts %}
+        <div>
+            <div>
+                {% for p in all_photos %}
+                {% if p in h.photo_set.all %}
+                <img style="width: 160px; height: 160px; padding: 5px;" src="{{ p.image.url }}">
+                {% endif %}{% endfor %}
+            </div>
+            <a class="navbar-brand js-scroll-trigger" href="/info/?p1={{h.singer}}" style="cursor: pointer;font-size: 15px; color: white;"> {{ h.concert_name }}</a><br>
+            <a href="/info/?p1={{h.singer}}" style="cursor: pointer;font-size: 15px; color: white;">Buying ticket date：{{ h.buy_ticket_date }} </a><br>
+            <a href="/info/?p1={{h.singer}}" style="cursor: pointer;font-size: 15px; color: white;">Concert's Date：{{ h.launch_date }}</a><br>
+        </div>
+        <br>
+        {% endfor %}
+        <br>
+        <br>
+        <p style="float: left;">今日隨機推薦:</p>
+        <br>
+        <div>
+            <div>
+                {% for p in all_photos %}
+                {% if p in recommend.photo_set.all %}
+                <img style="width: 160px; height: 160px; padding: 5px;" src="{{ p.image.url }}">
+                {% endif %}{% endfor %}
+            </div>
+            <a href="/info/?p1={{recommend.singer}}" style="cursor: pointer;font-size: 15px; color: white;"> {{ recommend.concert_name }}</a><br>
+            <a href="/info/?p1={{recommend.singer}}" style="cursor: pointer;font-size: 15px; color: white;">Buying ticket date：{{ recommend.buy_ticket_date }} </a><br>
+            <a href="/info/?p1={{recommend.singer}}" style="cursor: pointer;font-size: 15px; color: white;">Concert's Date：{{ recommend.launch_date }}</a><br>
+        </div>
+        <br>
+        <br>
+        <p style="float: left;">本週開始搶票:</p>
+        <br>
+        {% for r in recent_concerts %}
+        <div>
+            <div>
+                {% for p in all_photos %}
+                {% if p in r.photo_set.all %}
+                <img style="width: 160px; height: 160px; padding: 5px;" src="{{ p.image.url }}">
+                {% endif %}{% endfor %}
+            </div>
+            <a class="navbar-brand js-scroll-trigger" href="/info/?p1={{r.singer}}" style="cursor: pointer;font-size: 15px; color: white;"> {{ r.concert_name }}</a><br>
+            <a href="/info/?p1={{recommend.singer}}" style="cursor: pointer;font-size: 15px; color: white;">Buying ticket date：{{ r.buy_ticket_date }} </a><br>
+            <a href="/info/?p1={{recommend.singer}}" style="cursor: pointer;font-size: 15px; color: white;">Concert's Date：{{ r.launch_date }}</a><br>
+        </div>
+        <br>
+        {% endfor %}
+    </div>
+    <!-- 收藏 -->
+    <h3 id="collection"><img class="star" src="{% static 'images/stars.png' %}"></h3>
+    <nav class="menu" id="menu">
+        <ul>
+            {% for fav in all_fav %}
+            <li>
+                <div>
+                    <a id='delete_fav' class="fas fa-times" style="cursor: pointer;position: relative;top: 65px ;right: 20px ;float: right; font-size: 30px;" onclick="deletefavorite('{{fav.concert_name}}')"></a>
+                    {% for p in all_photos %}
+                    {% if p.concert_name == fav.concert_name %}
+                    <img style="width: 130px; height: 150px; padding: 5px;" src="{{ p.image.url }}">
+                    {% endif %}{% endfor %}
+                </div>
+                <div>{% for a in all_concerts %}{% if fav in a.favoriteconcert_set.all %} <a href="/info/?p1={{a.singer}}">{{ fav.concert_name }}</a>{% endif %}{% endfor %}</div>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </nav>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="#page-top">Ticket Get</a>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <form action="/search/" method="post">
+                            {% csrf_token %}
+                            <div class="box">
+                                <div class="search_block">
+                                    <span class="icon"><i class="fa fa-search"></i></span>
+                                    <input type="text" id="search" name="search" placeholder="Search...">
+                                </div>
+                            </div>
+                        </form>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#projects">Developer</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Header -->
+    <header class="masthead">
+        <div class="container d-flex h-100 align-items-center">
+            <div class="mx-auto text-center">
+                <h1 class="mx-auto my-0 text-uppercase">Ticket <br>Get</h1><br>
+                <h2 class="text-white-50 mx-auto mt-2 mb-5">We provide latest information of all concerts around the world.</h2>
+                <a href="#about" class="js-scroll-trigger" id="slide-bottom"><img src="{% static 'athena/wpoint.png' %}" width="180px"></a>
+            </div>
+        </div>
+    </header>
+    <!-- About Section -->
+    <section id="about" class="about-section text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <h2 class="text-white mb-4">WHAT WE DO</h2>
+                </div>
+            </div>
+        </div><br><br><br><br>
+        <section class="contact-section bg-black" id="about-row">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <div class="card py-4 h-100">
+                            <div class="card-body text-center">
+                                <i class="fas fa-hourglass-start text-primary mb-2"></i>
+                                <h4 class="text-uppercase m-0">搶票倒數</h4>
+                                <hr class="my-4">
+                                <div class="small text-black-50">
+                                    <a>點進演唱會的頁面，倒數的功能提醒你什麼時候該搶票！</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <div class="card py-4 h-100">
+                            <div class="card-body text-center">
+                                <i class="fas fa-bullhorn text-primary mb-2"></i>
+                                <h4 class="text-uppercase m-0">首頁公告</h4>
+                                <hr class="my-4">
+                                <div class="small text-black-50">
+                                    <a>怕錯過熱門或即將到來的演唱會嗎？快來看看我們的最新資訊！</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <div class="card py-4 h-100">
+                            <div class="card-body text-center">
+                                <i class="fas fa-star text-primary mb-2"></i>
+                                <h4 class="text-uppercase m-0">收藏</h4>
+                                <hr class="my-4">
+                                <div class="small text-black-50">
+                                    <a>還在辛苦地找上次瀏覽的演唱會資訊？加入收藏吧，下次我們帶你去！</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br><br><br><br><br><br><br><br>
+        </section>
+        <!-- Projects Section -->
+        <section id="projects" class="projects-section bg-light bg-black">
+            <div class="container">
+                <!-- Project One Row -->
+                <div class="row justify-content-center no-gutters mb-5 mb-lg-0">
+                    <div class="col-lg-6">
+                        <img class="project-img" style="width: 250px" src="{% static 'athena/img/demo-image-01.jpg' %}" alt="">
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="bg-blackh-100 project">
+                            <div class="d-flex h-100">
+                                <div class="project-text w-100 my-auto text-center text-lg-left project-text-left">
+                                    <h4 class="text-white">林郁蓁</h4>
+                                    <h6 class="mb-0 text-white-50">" 底下的都在耍笨，只有我不笨。"</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><br><br>
+                <!-- Project Two Row -->
+                <div class="row justify-content-center no-gutters">
+                    <div class="col-lg-6">
+                        <img class="project-img" style="width: 250px" src="{% static 'athena/img/demo-image-02.jpg' %}" alt="">
+                    </div>
+                    <div class="col-lg-6 order-lg-first">
+                        <div class="bg-black text-center h-100 project">
+                            <div class="d-flex h-100">
+                                <div class="project-text w-100 my-auto text-center text-lg-right project-text-right">
+                                    <h4 class="text-white">顏易民</h4>
+                                    <h6 class="mb-0 text-white-50">" 鄭傑宇都在雷，我沒有。"</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><br><br>
+                <div class="row justify-content-center no-gutters mb-5 mb-lg-0">
+                    <div class="col-lg-6">
+                        <img class="project-img" style="width: 250px" src="{% static 'athena/img/demo-image-03.jpg' %}" alt="">
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="bg-blackh-100 project">
+                            <div class="d-flex h-100">
+                                <div class="project-text w-100 my-auto text-center text-lg-left project-text-left">
+                                    <h4 class="text-white">姜學穎</h4>
+                                    <h6 class="mb-0 text-white-50">＂夾在中間不知所措。＂</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><br><br>
+                <!-- Project Two Row -->
+                <div class="row justify-content-center no-gutters">
+                    <div class="col-lg-6">
+                        <img class="project-img" style="width: 250px" src="{% static 'athena/img/demo-image-04.jpg' %}" alt="">
+                    </div>
+                    <div class="col-lg-6 order-lg-first">
+                        <div class="bg-black text-center h-100 project">
+                            <div class="d-flex h-100">
+                                <div class="project-text w-100 my-auto text-center text-lg-right project-text-right">
+                                    <h4 class="text-white">鄭傑宇</h4>
+                                    <h6 class="mb-0 text-white-50">＂顏易民是肥宅，我不是。＂</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Footer -->
+        <footer class="bg-black small text-center text-white-50">
+            <div class="container">
+                National Taiwan University of Science and Technology
+            </div>
+        </footer>
+        <!-- Bootstrap core JavaScript -->
+        <script src="{% static 'athena/vendor/jquery/jquery.min.js' %}"></script>
+        <script src="{% static 'athena/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+        <!-- Plugin JavaScript -->
+        <script src="{% static 'athena/vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+        <!-- Custom scripts for this template -->
+        <script src="{% static 'athena/js/grayscale.min.js' %}"></script>
+        <script>
+        $.ajaxSetup({
+            data: { csrfmiddlewaretoken: '{{ csrf_token }}' },
+        });
+        $('#close').click(function() {
+            $('.notice').css('display', 'none')
+        })
+        </script>
+        <script src="{% static 'athena/js/add_favorite.js' %}"></script>
+        <!--側邊選單的js-->
+        <script>
+        $(function() {
+            var href = $(".nav>aside>div>ul>li:has(ul)>a").attr('href');
+            $(".nav>aside>ul>li:has(ul)>a").after('<a href="' + href + '"" class="menu-plus fas fa-angle-right"></a>'); //第二層
+            $(".nav>aside>ul>li>ul>li:has(ul)>a").after('<a href="' + href + '"" class="menu-plus fas fa-angle-right"></a>'); //第三層
+
+            $(".nav>aside>#nav-btn").click(function() {
+                $(".nav>aside>ul").slideToggle();
+                return false;
+            });
+
+
+
+            $('.menu>li>.fas').on('click', function() {
+                if ($(this).attr('class') == 'menu-plus fas fa-angle-right') {
+                    $(this).removeClass('fa-angle-right');
+                    $(this).addClass('fa-angle-down');
+                } else {
+                    $(this).removeClass('fa-angle-down');
+                    $(this).addClass('fa-angle-right');
+                }
+
+                $(this).next('.sub-menu').slideToggle();
+                return false;
+            });
+
+
+            $('.menu>li>ul>li>.fas').on('click', function() {
+                if ($(this).attr('class') == 'menu-plus fas fa-angle-right') {
+                    $(this).removeClass('fa-angle-right');
+                    $(this).addClass('fa-angle-down');
+                } else {
+                    $(this).removeClass('fa-angle-down');
+                    $(this).addClass('fa-angle-right');
+                }
+
+                $(this).next('.sub-menu').slideToggle();
+                return false;
+            });
+
+        })
+        </script>
+        <script>
+        $(function() {
+            // 
+            var duration = 300;
+
+            // aside ----------------------------------------
+            var $aside = $('.nav > aside > nav-tgl');
+            var $asidButton = $aside.find('.qq')
+                .on('click', function() {
+                    $aside.toggleClass('open');
+                    if ($aside.hasClass('open')) {
+                        $aside.stop(true).animate({ right: '-70px' }, duration, 'easeOutBack');
+                        $asidButton.find('img').attr('src', 'https://c2.staticflickr.com/6/5635/31065147822_9b6e31ab5f_o.png');
+                    } else {
+                        $aside.stop(true).animate({ right: '-350px' }, duration, 'easeInBack');
+                        $asidButton.find('img').attr('src', 'https://c2.staticflickr.com/6/5555/31208490685_5c55f2f28f_o.png');
+                    };
+                });
+
+        });
+        </script>
+        <script type="text/javascript">
+        $('#collection').click(function() {
+            if ($('#menu').attr('class') == 'menu') {
+                $('#menu').addClass('menu_active');
+            } else if ($('#menu').attr('class') == 'menu menu_deactive') {
+                $('#menu').removeClass('menu_deactive');
+                $('#menu').addClass('menu_active');
+            } else {
+                $('#menu').removeClass('menu_active');
+                $('#menu').addClass('menu_deactive');
+            }
+        })
+        </script>
+</body>
+
+</html>

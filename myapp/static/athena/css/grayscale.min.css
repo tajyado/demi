@@ -1,0 +1,319 @@
+/* navbar */
+#mainNav{
+	min-height:56px;
+}
+#mainNav .navbar-toggler{
+ 	font-size:80%;
+ 	padding:.75rem;
+ 	color:white;
+ 	border:1px
+}
+#mainNav .navbar-toggler:focus{
+ 	outline:0
+}
+#mainNav .navbar-brand{
+ 	color:white;
+ 	font-weight:700;
+ 	padding:.9rem 0
+}
+#mainNav .navbar-nav .nav-item:hover{
+ 	outline:0;
+}
+#mainNav .navbar-nav .nav-item:focus{
+ 	outline:0;
+}
+
+
+.search_block{
+	width: 300px;
+	vertical-align: middle;
+	white-space: nowrap;
+	position: relative;
+	right: 10px;
+	top: 0;
+}
+.search_block input#search{
+	width: 50px;
+	height: 50px;
+	background-color:transparent;
+	border: none;
+	font-size: 13pt;
+	float: left;
+	color: #262626;
+	padding-left: 35px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 50px;
+	color: black;
+	 
+	-webkit-transition: width .55s ease;
+	-moz-transition: width .55s ease;
+	-ms-transition: width .55s ease;
+	-o-transition: width .55s ease;
+	transition: width .55s ease;
+}
+.search_block .icon{
+  	position: absolute;
+  	top: 50%;
+  	margin-left: 10px;
+  	margin-top: 14px;
+  	z-index: 1;
+  	color: rgb(59,52,53);
+}
+.search_block input#search:focus, .search_block input#search:active{
+  	outline:none;
+  	width: 300px;
+  	background-color: white;
+	opacity: .5;
+}
+.search_block:hover input#search{
+	width: 300px;
+	background-color: white;
+	opacity: .5;
+}
+
+
+
+/* navbar size_large */
+@media (min-width:992px){
+ 	#mainNav{
+ 		padding-top:0;
+ 		padding-bottom:0;
+ 		border-bottom:none;
+ 	}
+	#mainNav .navbar-brand{
+		padding:.5rem 0;
+		color:rgba(255,255,255)
+	}
+	#mainNav .nav-link{
+		-webkit-transition:none;
+		transition:none;
+		padding:2rem 1.5rem;
+		color:rgba(255,255,255,.8)
+	}
+	#mainNav .nav-link:hover{
+		color:rgba(255,255,255,1)
+	}
+	#mainNav .nav-link:active{
+		color:white
+	}
+ 	#mainNav.navbar-shrink .navbar-brand{
+ 		color:rgba(255,255,255,.8)
+ 	}
+ 	#mainNav.navbar-shrink .nav-link{
+ 		color:rgba(255,255,255,.8);
+ 		padding:1.5rem 1.5rem 1.25rem;
+ 		border-bottom:.25rem solid transparent
+ 	}
+ 	#mainNav.navbar-shrink .nav-link:hover{
+ 		color:rgb(255,255,255)
+ 	}
+ 	#mainNav.navbar-shrink .nav-link:active{
+ 		color:rgb(255,255,255);
+ 	}
+ 	#mainNav.navbar-shrink .nav-link.active{
+ 		color:white;
+ 		outline:0;
+ 		border-bottom:.25rem solid white
+ 	}
+ 	.search_block{
+ 		position: relative;
+ 		top: 20px;
+ 	}
+ 	.search_block input#search{
+ 		float:right;
+ 		padding-right: 40px;
+ 	}
+ 	.search_block .icon{
+ 		color:rgba(255,255,255,.8);
+ 		position: absolute;
+ 		right: 15px;
+ 	}
+ 	.search_block .icon:hover{
+ 		color:rgba(255,255,255);
+ 	}
+ }
+
+
+
+/* home page */
+.masthead{
+	position:relative;
+ 	width:100%;
+ 	height:auto;
+ 	min-height:35rem;
+ 	padding:15rem 0;
+ 	background:linear-gradient(to bottom,rgba(22,22,22,.1) 0,rgba(14, 20, 42,1) 100%),url('../img/bg.png');
+ 	background-position:center;
+ 	background-repeat:no-repeat;
+ 	background-attachment:scroll;
+ 	background-size:cover
+}
+.masthead h1{
+ 	font-family:'Varela Round';
+ 	font-size:2.5rem;
+ 	line-height:2.5rem;
+ 	letter-spacing:.6rem;
+ 	background:-webkit-linear-gradient(rgba(255,255,255,1),rgba(255,255,255,.6));
+ 	-webkit-text-fill-color:transparent;
+ 	-webkit-background-clip:text
+}
+.masthead h2{
+ 	max-width:20rem;
+ 	font-size:1rem
+}
+
+
+
+@media (min-width:768px){
+ 	.masthead h1{
+ 		font-size:4rem;
+ 		line-height:4rem
+ 	}
+}
+
+@media (min-width:992px){
+ 	.masthead{
+ 		height:100vh;
+ 		padding:0
+ 	}
+ 	.masthead h1{
+ 		position: relative;
+ 		top: 20px;
+ 		left: 20px;
+ 		font-size:6rem;
+ 		line-height:6.5rem;
+ 		letter-spacing:.6rem
+ 	}
+ 	.masthead h2{
+ 		position: relative;
+ 		top: 10px;
+ 		max-width:30rem;
+ 		font-size:1.25rem
+ 	}
+}
+
+
+
+/* sliding bottom */
+#slide-bottom{
+	position: relative;
+ 	top: 30px;
+	display:flex;
+ 	align-items:center;
+  	justify-content:center;
+	-webkit-animation: slide-bottom 1s ease-in-out infinite alternate both;
+	        animation: slide-bottom 1s ease-in-out infinite alternate both;
+}
+
+@-webkit-keyframes slide-bottom {
+  0% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+  100% {
+    -webkit-transform: translateY(50px);
+            transform: translateY(50px);
+  }
+}
+@keyframes slide-bottom {
+  0% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+  100% {
+    -webkit-transform: translateY(50px);
+            transform: translateY(50px);
+  }
+}
+
+
+/* about section */
+.about-section{
+	padding-top:13rem;
+	background:rgb(14, 20, 42);
+}
+.about-section h2{
+	margin-bottom:5rem
+	font-size:13px;
+}
+.about-section a{
+	font-size: 15px;
+}
+.about-row{
+	position: relative;
+	top: 30px;
+}
+
+
+
+/* developer section */
+.projects-section{
+	padding:5rem 0
+}
+.projects-section .featured-text{
+	padding:2rem
+}
+.project-img{
+	position: relative;
+	left: 20px;
+	-webkit-clip-path: circle(50% at 50% 50%);
+	clip-path: circle(50% at 50% 50%);
+}
+
+@media (min-width:992px){
+	.projects-section .featured-text{
+		padding:0 0 0 2rem;
+		border-left:.5rem solid white
+	}
+}
+
+.projects-section .project-text{
+	padding:3rem;
+	font-size:17px
+}
+
+@media (min-width:992px){
+	.projects-section .project-text{
+		padding:5rem
+	}
+	.project-text-left{
+		position: relative;
+		left:-80px;
+	}
+	.project-text-right{
+		position: relative;
+		right:-80px;
+	}
+}
+
+
+/* all */
+body{
+	font-family:'Varela Round';
+	letter-spacing:.0625em
+}
+
+a{
+	color:white
+}
+
+a:focus,a:hover{
+	text-decoration:none;
+	color:#3c6360
+}
+
+.bg-black{
+	background-color:rgb(14, 20, 42)!important
+}
+
+.bg-primary{
+	background-color:black!important
+}
+
+.text-primary{color:black!important
+}
+
+footer{
+ 	padding:5rem 0
+ }
