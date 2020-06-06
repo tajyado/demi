@@ -1,4 +1,4 @@
-Django==1.8.6
+Django==1.11.29
 appnope==0.1.0
 decorator==4.0.4
 dj-database-url==0.3.0
